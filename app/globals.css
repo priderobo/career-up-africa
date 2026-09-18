@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-canvas font-body text-ink;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* Small play-button triangle, drawn with borders since it's simpler than an SVG here */
+  .play-triangle::after {
+    content: "";
+    border-style: solid;
+    border-width: 7px 0 7px 11px;
+    border-color: transparent transparent transparent theme("colors.ink");
+    margin-left: 3px;
+  }
+
+  /* FAQ accordion chevron, rotates via the native <details open> attribute selector */
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron::after {
+    content: "";
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid theme("colors.brand.teal");
+    border-bottom: 2px solid theme("colors.brand.teal");
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+    flex: none;
+    margin-left: 16px;
+  }
+  details[open] .faq-chevron::after {
+    transform: rotate(-135deg);
+  }
+}
