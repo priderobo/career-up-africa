@@ -40,6 +40,22 @@ const SOCIAL_ICONS: Record<(typeof SOCIAL_LINKS)[number]["icon"], ReactElement> 
   ),
 };
 
+// Small "Powered by Priderobo" credit. Placeholder href — point it at the Priderobo site when ready.
+function PoweredBy() {
+  return (
+    <a
+      href="https://priderobo.com"
+      className="inline-flex items-center gap-1.5 text-[12.5px] text-muted transition-colors hover:text-ink"
+    >
+      Powered by
+      <span className="inline-flex items-center gap-1.5 font-semibold text-ink">
+        <img src="/priderobo-logo.svg" alt="" className="h-[18px] w-auto" />
+        Priderobo
+      </span>
+    </a>
+  );
+}
+
 export default function SiteFooter() {
   return (
     <footer className="border-t border-line bg-white pt-14">
@@ -84,9 +100,10 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-between gap-2.5 border-t border-line py-6 text-[13px] text-muted">
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2.5 border-t border-line py-6 text-[13px] text-muted">
           <span>© 2026 CareerUp Africa. All rights reserved.</span>
           <span>Made for people building their careers at work.</span>
+          <PoweredBy />
         </div>
       </div>
     </footer>
