@@ -31,7 +31,7 @@ export default function SiteNav() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  const dark = scrolled || open;
+  const dark = scrolled;
 
   return (
     <div
@@ -95,13 +95,15 @@ export default function SiteNav() {
         }`}
       >
         <div className="overflow-hidden">
-          <nav className="flex flex-col border-t border-white/10 px-5 pb-5 pt-2">
+          <nav className={`flex flex-col border-t px-5 pb-5 pt-2 ${dark ? "border-white/10" : "border-line"}`}>
             {LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-white/10 py-3.5 text-[16px] font-medium text-white/85 transition-colors hover:text-white"
+                className={`border-b py-3.5 text-[16px] font-medium transition-colors ${
+                  dark ? "border-white/10 text-white/85 hover:text-white" : "border-line text-ink hover:text-brand-blue"
+                }`}
               >
                 {link.label}
               </a>
@@ -109,7 +111,9 @@ export default function SiteNav() {
             <a
               href="#"
               onClick={() => setOpen(false)}
-              className="mt-4 inline-flex items-center justify-center rounded-xl bg-brand-orange px-6 py-3 text-[15px] font-semibold text-white shadow-lg transition-colors hover:bg-[#DD640C]"
+              className={`mt-4 inline-flex items-center justify-center rounded-xl px-6 py-3 text-[15px] font-semibold text-white shadow-lg transition-colors ${
+                dark ? "bg-brand-orange hover:bg-[#DD640C]" : "bg-brand-blue hover:bg-[#16316F]"
+              }`}
             >
               Start learning
             </a>
