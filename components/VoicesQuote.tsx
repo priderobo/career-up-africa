@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 type Quote = {
   paragraphs: string[];
   name: string;
@@ -22,6 +26,62 @@ const QUOTES: Quote[] = [
   },
 ];
 
+function QuoteCard({ quote }: { quote: Quote }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  // Fades the last line out while there's still more of the quote below the fold
+  const [moreBelow, setMoreBelow] = useState(false);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    function update() {
+      if (!el) return;
+      setMoreBelow(el.scrollTop + el.clientHeight < el.scrollHeight - 4);
+    }
+    update();
+
+    el.addEventListener("scroll", update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className="relative flex flex-col rounded-2xl border border-line border-l-4 border-l-brand-teal bg-white px-6 pb-5 pt-7 shadow-panel">
+      <span className="absolute left-4 top-1 select-none font-display text-[40px] font-bold leading-none text-brand-teal-tint">
+        &ldquo;
+      </span>
+
+      <div className="relative">
+        {/* Fixed height keeps every card the same size; longer quotes scroll inside */}
+        <div
+          ref={scrollRef}
+          className="quote-scroll h-[168px] space-y-3 overflow-y-auto pr-2 text-[14.5px] leading-relaxed text-ink"
+        >
+          {quote.paragraphs.map((p) => (
+            <p key={p.slice(0, 24)}>{p}</p>
+          ))}
+        </div>
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white to-transparent transition-opacity duration-200 ${
+            moreBelow ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </div>
+
+      <div className="mt-auto flex flex-col gap-0.5 pt-5">
+        <strong className="font-display text-[14.5px]">{quote.name}</strong>
+        {quote.role && <span className="text-[13px] text-muted">{quote.role}</span>}
+      </div>
+    </div>
+  );
+}
+
 export default function VoicesQuote() {
   return (
     <section id="voices" className="py-16">
@@ -36,23 +96,7 @@ export default function VoicesQuote() {
 
         <div className="mx-auto grid max-w-[900px] grid-cols-1 gap-5 md:grid-cols-2">
           {QUOTES.map((q) => (
-            <div
-              key={q.name}
-              className="relative flex flex-col rounded-2xl border border-line border-l-4 border-l-brand-teal bg-white px-6 pb-5 pt-7 shadow-panel"
-            >
-              <span className="absolute left-4 top-1 select-none font-display text-[40px] font-bold leading-none text-brand-teal-tint">
-                &ldquo;
-              </span>
-              <div className="relative space-y-3 text-[14.5px] leading-relaxed text-ink">
-                {q.paragraphs.map((p) => (
-                  <p key={p.slice(0, 24)}>{p}</p>
-                ))}
-              </div>
-              <div className="mt-auto flex flex-col gap-0.5 pt-5">
-                <strong className="font-display text-[14.5px]">{q.name}</strong>
-                {q.role && <span className="text-[13px] text-muted">{q.role}</span>}
-              </div>
-            </div>
+            <QuoteCard key={q.name} quote={q} />
           ))}
         </div>
       </div>

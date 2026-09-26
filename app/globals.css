@@ -14,6 +14,27 @@
 }
 
 @layer components {
+  /* Slim scrollbar for the quote cards, so a long quote can scroll without a chunky
+     native bar breaking the card's look. Firefox gets the standard properties. */
+  .quote-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: theme("colors.line") transparent;
+    overscroll-behavior: contain;
+  }
+  .quote-scroll::-webkit-scrollbar {
+    width: 5px;
+  }
+  .quote-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .quote-scroll::-webkit-scrollbar-thumb {
+    background: theme("colors.line");
+    border-radius: 999px;
+  }
+  .quote-scroll:hover::-webkit-scrollbar-thumb {
+    background: theme("colors.brand.teal-tint");
+  }
+
   /* Small play-button triangle, drawn with borders since it's simpler than an SVG here */
   .play-triangle::after {
     content: "";
