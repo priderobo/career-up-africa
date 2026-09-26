@@ -16,6 +16,19 @@ type Advisor = {
 
 const ADVISORS: Advisor[] = [
   {
+    name: "Charity Eruaga",
+    role: "Founder, CareerUp Africa",
+    bio: [
+      "Charity Eruaga is an operations and business management professional with experience across programme management and business operations.",
+      "She has worked with organisations across Africa and the UK, supporting teams to turn ideas into structured, practical, and measurable outcomes.",
+      "She is the founder of CareerUp Africa, a workforce development platform focused on helping African professionals build more resilient and future-ready careers.",
+    ],
+    linkedin: "https://www.linkedin.com/in/eruagacharity",
+    photo: "/advisors/charity-eruaga.jpg",
+    focus: "object-top",
+    accent: "#F97316",
+  },
+  {
     name: "Princess Nkoyo Iwok",
     role: "Public Administration & Supply Chain",
     bio: [
@@ -44,19 +57,6 @@ const ADVISORS: Advisor[] = [
     photo: "/advisors/vanessa-goldbee.jpg",
     focus: "object-top",
     accent: "#14B8A6",
-  },
-  {
-    name: "Charity Eruaga",
-    role: "Founder, CareerUp Africa",
-    bio: [
-      "Charity Eruaga is an operations and business management professional with experience across programme management and business operations.",
-      "She has worked with organisations across Africa and the UK, supporting teams to turn ideas into structured, practical, and measurable outcomes.",
-      "She is the founder of CareerUp Africa, a workforce development platform focused on helping African professionals build more resilient and future-ready careers.",
-    ],
-    linkedin: "https://www.linkedin.com/in/eruagacharity",
-    photo: "/advisors/charity-eruaga.jpg",
-    focus: "object-top",
-    accent: "#F97316",
   },
   {
     name: "Ndubuisi C. Justin Onyemuche",
